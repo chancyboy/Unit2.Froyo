@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Froyo Flavor Counter</title>
+</head>
+<body>
+  <h1>Froyo Flavor Counter</h1>
+  <p>Enter a list of comma-separated froyo flavors:</p>
+  <input type="text" id="flavorInput">
+  <button onclick="countFlavors()">Count Flavors</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Flavor</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody id="flavorList"></tbody>
+  </table>
+
+  <script>
+    function countFlavors() {
+      const input = document.getElementById("flavorInput").value;
+      const flavors = input.split(",").map(flavor => flavor.trim());
+      const flavorCount = {};
+
+      for (const flavor of flavors) {
+        if (flavorCount[flavor]) {
+          flavorCount[flavor]++;
+        } else {
+          flavorCount[flavor] = 1;
+        }
+      }
+
+      const flavorList = document.getElementById("flavorList");
+      flavorList.innerHTML = "";
+
+      for (const flavor in flavorCount) {
+        const row = document.createElement("tr");
+        const flavorCell = document.createElement("td");
+        flavorCell.textContent = flavor;
+        const countCell = document.createElement("td");
+        countCell.textContent = flavorCount[flavor];
+        row.appendChild(flavorCell);
+        row.appendChild(countCell);
+        flavorList.appendChild(row);
+      }
+    }
+  </script>
+
+</html>
